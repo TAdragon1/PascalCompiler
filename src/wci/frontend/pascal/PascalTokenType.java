@@ -15,11 +15,12 @@ import wci.frontend.TokenType;
  */
 public enum PascalTokenType implements TokenType
 {
+	// REMOVE CONST, DOWNTO, GOTO, LABEL, RECORD, TYPE, DOT_DOT
     // Reserved words.
-    AND, ARRAY, BEGIN, CASE, CONST, DIV, DO, DOWNTO, ELSE, END,
-    FILE, FOR, FUNCTION, GOTO, IF, IN, LABEL, MOD, NIL, NOT,
-    OF, OR, PACKED, PROCEDURE, PROGRAM, RECORD, REPEAT, SET,
-    THEN, TO, TYPE, UNTIL, VAR, WHILE, WITH,
+    AND, ARRAY, BEGIN, CASE, DIV, DO, ELSE, END,
+    FILE, FOR, FUNCTION, IF, IN, MOD, NIL, NOT,
+    OF, OR, PACKED, PROCEDURE, PROGRAM, REPEAT, SET,
+    THEN, TO, UNTIL, VAR, WHILE, WITH,
 
     // Special symbols.
     PLUS("+"), MINUS("-"), STAR("*"), SLASH("/"), COLON_EQUALS(":="),
@@ -27,7 +28,7 @@ public enum PascalTokenType implements TokenType
     EQUALS("="), NOT_EQUALS("<>"), LESS_THAN("<"), LESS_EQUALS("<="),
     GREATER_EQUALS(">="), GREATER_THAN(">"), LEFT_PAREN("("), RIGHT_PAREN(")"),
     LEFT_BRACKET("["), RIGHT_BRACKET("]"), LEFT_BRACE("{"), RIGHT_BRACE("}"),
-    UP_ARROW("^"), DOT_DOT(".."),
+    UP_ARROW("^"),
 
     IDENTIFIER, INTEGER, REAL, STRING,
     ERROR, END_OF_FILE;
@@ -36,7 +37,7 @@ public enum PascalTokenType implements TokenType
     private static final int LAST_RESERVED_INDEX  = WITH.ordinal();
 
     private static final int FIRST_SPECIAL_INDEX = PLUS.ordinal();
-    private static final int LAST_SPECIAL_INDEX  = DOT_DOT.ordinal();
+    private static final int LAST_SPECIAL_INDEX  = UP_ARROW.ordinal();
 
     private String text;  // token text
 

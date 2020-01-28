@@ -53,7 +53,7 @@ public class PascalNumberToken extends PascalToken
         String fractionDigits = null;  // digits after the decimal point
         String exponentDigits = null;  // exponent digits
         char exponentSign = '+';       // exponent sign '+' or '-'
-        boolean sawDotDot = false;     // true if saw .. token
+        boolean sawDotDot = false;     // true if saw .. token -- CAN REMOVE?
         char currentChar;              // current character
 
         type = INTEGER;  // assume INTEGER token type for now
@@ -84,24 +84,25 @@ public class PascalNumberToken extends PascalToken
             }
         }
 
+        // NO EXPONENTS ALLOWED
         // Is there an exponent part?
         // There cannot be an exponent if we already saw a ".." token.
-        currentChar = currentChar();
-        if (!sawDotDot && ((currentChar == 'E') || (currentChar == 'e'))) {
-            type = REAL;  // exponent, so token type is REAL
-            textBuffer.append(currentChar);
-            currentChar = nextChar();  // consume 'E' or 'e'
-
-            // Exponent sign?
-            if ((currentChar == '+') || (currentChar == '-')) {
-                textBuffer.append(currentChar);
-                exponentSign = currentChar;
-                currentChar = nextChar();  // consume '+' or '-'
-            }
-
-            // Extract the digits of the exponent.
-            exponentDigits = unsignedIntegerDigits(textBuffer);
-        }
+//        currentChar = currentChar();
+//        if (!sawDotDot && ((currentChar == 'E') || (currentChar == 'e'))) {
+//            type = REAL;  // exponent, so token type is REAL
+//            textBuffer.append(currentChar);
+//            currentChar = nextChar();  // consume 'E' or 'e'
+//
+//            // Exponent sign?
+//            if ((currentChar == '+') || (currentChar == '-')) {
+//                textBuffer.append(currentChar);
+//                exponentSign = currentChar;
+//                currentChar = nextChar();  // consume '+' or '-'
+//            }
+//
+//            // Extract the digits of the exponent.
+//            exponentDigits = unsignedIntegerDigits(textBuffer);
+//        }
 
         // Compute the value of an integer number token.
         if (type == INTEGER) {
