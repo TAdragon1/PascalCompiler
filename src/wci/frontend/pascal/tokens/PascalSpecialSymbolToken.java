@@ -86,9 +86,9 @@ public class PascalSpecialSymbolToken extends PascalToken
                     nextChar();  // consume '='
                 }
                 // ADDED
-                else if (currentChar == '>') {
+                else if (currentChar == '<') {
                 	text += currentChar;
-                	nextChar();  // consume '>'
+                	nextChar();  // consume '<'
                 }
 
                 break;
