@@ -3,6 +3,7 @@ package wci.frontend.pascal.tokens;
 import wci.frontend.*;
 import wci.frontend.pascal.*;
 
+import static wci.frontend.pascal.PascalErrorCode.INVALID_CHARACTER;
 import static wci.frontend.pascal.PascalTokenType.*;
 
 /**
@@ -59,7 +60,10 @@ public class PascalWordToken extends PascalToken
 		               : IDENTIFIER;                                  // identifier
 		        
 	        }
-	        
+	        else {
+                type = ERROR;
+                value = INVALID_CHARACTER;
+	        }
         }
     }
     

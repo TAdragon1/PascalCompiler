@@ -1,0 +1,141 @@
+001 PROGRAM Example1chapter3( input, output )
+>>> PROGRAM         line=001, pos= 0, text="PROGRAM"
+>>> IDENTIFIER      line=001, pos= 8, text="Example1chapter3"
+>>> LEFT_PAREN      line=001, pos=24, text="("
+>>> IDENTIFIER      line=001, pos=26, text="input"
+>>> COMMA           line=001, pos=31, text=","
+>>> IDENTIFIER      line=001, pos=33, text="output"
+>>> RIGHT_PAREN     line=001, pos=40, text=")"
+002 VAR
+>>> VAR             line=002, pos= 0, text="VAR"
+003   ValueofPie :interger;
+>>> IDENTIFIER      line=003, pos= 2, text="ValueofPie"
+>>> COLON           line=003, pos=13, text=":"
+>>> IDENTIFIER      line=003, pos=14, text="interger"
+>>> SEMICOLON       line=003, pos=22, text=";"
+004 
+005 {Calculate nothing correctly}
+006 VAR
+>>> VAR             line=006, pos= 0, text="VAR"
+007    Number_Of_Balls : Integer;
+>>> IDENTIFIER      line=007, pos= 3, text="Number_Of_Balls"
+>>> COLON           line=007, pos=19, text=":"
+>>> IDENTIFIER      line=007, pos=21, text="Integer"
+>>> SEMICOLON       line=007, pos=28, text=";"
+008    Customer_Count   : Interger;
+>>> IDENTIFIER      line=008, pos= 3, text="Customer_Count"
+>>> COLON           line=008, pos=20, text=":"
+>>> IDENTIFIER      line=008, pos=22, text="Interger"
+>>> SEMICOLON       line=008, pos=30, text=";"
+009 
+010 BEGIN
+>>> BEGIN           line=010, pos= 0, text="BEGIN"
+011   ValueofPie := 3;
+>>> IDENTIFIER      line=011, pos= 2, text="ValueofPie"
+>>> COLON_EQUALS    line=011, pos=13, text=":="
+>>> INTEGER         line=011, pos=16, text="3"
+>>>                 value=3
+>>> SEMICOLON       line=011, pos=17, text=";"
+012    IF Customer_Count = 0 then BeGin
+>>> IF              line=012, pos= 3, text="IF"
+>>> IDENTIFIER      line=012, pos= 6, text="Customer_Count"
+>>> EQUALS          line=012, pos=21, text="="
+>>> INTEGER         line=012, pos=23, text="0"
+>>>                 value=0
+>>> THEN            line=012, pos=25, text="then"
+>>> BEGIN           line=012, pos=30, text="BeGin"
+013 	writeln('There are no Customers');
+>>> IDENTIFIER      line=013, pos= 1, text="writeln"
+>>> LEFT_PAREN      line=013, pos= 8, text="("
+>>> STRING          line=013, pos= 9, text="'There are no Customers'"
+>>>                 value="There are no Customers"
+>>> RIGHT_PAREN     line=013, pos=33, text=")"
+>>> SEMICOLON       line=013, pos=34, text=";"
+014 	Writeln('Dead in the water');
+>>> IDENTIFIER      line=014, pos= 1, text="Writeln"
+>>> LEFT_PAREN      line=014, pos= 8, text="("
+>>> STRING          line=014, pos= 9, text="'Dead in the water'"
+>>>                 value="Dead in the water"
+>>> RIGHT_PAREN     line=014, pos=28, text=")"
+>>> SEMICOLON       line=014, pos=29, text=";"
+015 	END
+>>> END             line=015, pos= 1, text="END"
+016 
+017 SurfaceArea := Radius * Radius * Radius * ValueofPie;
+>>> IDENTIFIER      line=017, pos= 0, text="SurfaceArea"
+>>> COLON_EQUALS    line=017, pos=12, text=":="
+>>> IDENTIFIER      line=017, pos=15, text="Radius"
+>>> STAR            line=017, pos=22, text="*"
+>>> IDENTIFIER      line=017, pos=24, text="Radius"
+>>> STAR            line=017, pos=31, text="*"
+>>> IDENTIFIER      line=017, pos=33, text="Radius"
+>>> STAR            line=017, pos=40, text="*"
+>>> IDENTIFIER      line=017, pos=42, text="ValueofPie"
+>>> SEMICOLON       line=017, pos=52, text=";"
+018  IF Manager = 4232 Then
+>>> IF              line=018, pos= 1, text="IF"
+>>> IDENTIFIER      line=018, pos= 4, text="Manager"
+>>> EQUALS          line=018, pos=12, text="="
+>>> INTEGER         line=018, pos=14, text="4232"
+>>>                 value=4232
+>>> THEN            line=018, pos=19, text="Then"
+019 	Begin
+>>> BEGIN           line=019, pos= 1, text="Begin"
+020 	  AppleProfits = 34.6211 ; 
+>>> IDENTIFIER      line=020, pos= 3, text="AppleProfits"
+>>> EQUALS          line=020, pos=16, text="="
+>>> REAL            line=020, pos=18, text="34.6211"
+>>>                 value=34.6211
+>>> SEMICOLON       line=020, pos=26, text=";"
+021 	  Microsoft_Profit = 34313000;
+>>> IDENTIFIER      line=021, pos= 3, text="Microsoft_Profit"
+>>> EQUALS          line=021, pos=20, text="="
+>>> INTEGER         line=021, pos=22, text="34313000"
+>>>                 value=34313000
+>>> SEMICOLON       line=021, pos=30, text=";"
+022 	  IBM_Profit = 3313000.0;
+>>> IDENTIFIER      line=022, pos= 3, text="IBM_Profit"
+>>> EQUALS          line=022, pos=14, text="="
+>>> REAL            line=022, pos=16, text="3313000.0"
+>>>                 value=3313000.0
+>>> SEMICOLON       line=022, pos=25, text=";"
+023 	  ShipFloraProfit = 121.33;
+>>> IDENTIFIER      line=023, pos= 3, text="ShipFloraProfit"
+>>> EQUALS          line=023, pos=19, text="="
+>>> REAL            line=023, pos=21, text="121.33"
+>>>                 value=121.33
+>>> SEMICOLON       line=023, pos=27, text=";"
+024 	End
+>>> END             line=024, pos= 1, text="End"
+025 Number_Of_Balls := 0;
+>>> IDENTIFIER      line=025, pos= 0, text="Number_Of_Balls"
+>>> COLON_EQUALS    line=025, pos=16, text=":="
+>>> INTEGER         line=025, pos=19, text="0"
+>>>                 value=0
+>>> SEMICOLON       line=025, pos=20, text=";"
+026 Repeat
+>>> REPEAT          line=026, pos= 0, text="Repeat"
+027 	Number_Of_Balls := Number_Of_Balls - 1;
+>>> IDENTIFIER      line=027, pos= 1, text="Number_Of_Balls"
+>>> COLON_EQUALS    line=027, pos=17, text=":="
+>>> IDENTIFIER      line=027, pos=20, text="Number_Of_Balls"
+>>> MINUS           line=027, pos=36, text="-"
+>>> INTEGER         line=027, pos=38, text="1"
+>>>                 value=1
+>>> SEMICOLON       line=027, pos=39, text=";"
+028 Until Number_Of_Balls >< 0
+>>> UNTIL           line=028, pos= 0, text="Until"
+>>> IDENTIFIER      line=028, pos= 6, text="Number_Of_Balls"
+>>> NOT_EQUALS      line=028, pos=22, text="><"
+>>> INTEGER         line=028, pos=25, text="0"
+>>>                 value=0
+029 
+030 End
+>>> END             line=030, pos= 0, text="End"
+
+                  30 source lines.
+                   0 syntax errors.
+                0.04 seconds total parsing time.
+
+                   0 instructions generated.
+                0.00 seconds total code generation time.
