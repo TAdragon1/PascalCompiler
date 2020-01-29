@@ -39,6 +39,8 @@ public class PascalWordToken extends PascalToken
         StringBuilder textBuffer = new StringBuilder();
         char currentChar = currentChar();
 
+        boolean underscoreAtEnd = false;
+
         // At this point, currentChar is the first character of the word token
         if (currentChar != UNDERSCORE) {
         	
@@ -47,25 +49,27 @@ public class PascalWordToken extends PascalToken
 	        while (Character.isLetterOrDigit(currentChar) || currentChar == UNDERSCORE) {
 	            textBuffer.append(currentChar);
 	            currentChar = nextChar();  // consume character
+	            
+	            if(currentChar == '_' && peekChar() == ' ') {
+	            	underscoreAtEnd = true;
+	            }
 	        }
 
-	        // At this point, currentChar is the last character
-	        if (currentChar != UNDERSCORE) {
-	        	
+	        if (!underscoreAtEnd) {
 		        text = textBuffer.toString();
-		
+	
 		        // Is it a reserved word or an identifier?
 		        type = (RESERVED_WORDS.contains(text.toLowerCase()))
 		               ? PascalTokenType.valueOf(text.toUpperCase())  // reserved word
 		               : IDENTIFIER;                                  // identifier
-		        
 	        }
 	        else {
-                type = ERROR;
+            	text = textBuffer.toString();
+            	type = ERROR;
                 value = INVALID_CHARACTER;
 	        }
         }
     }
-    
-    
+
+
 }

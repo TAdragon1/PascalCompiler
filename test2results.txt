@@ -15,6 +15,8 @@
 >>> SEMICOLON       line=003, pos=22, text=";"
 004 
 005 {Calculate nothing correctly}
+>>> COMMENT         line=005, pos= 0, text="Calculate nothing correctly"
+>>>                 value=Calculate nothing correctly
 006 VAR
 >>> VAR             line=006, pos= 0, text="VAR"
 007    Number_Of_Balls : Integer;
@@ -135,7 +137,7 @@
 
                   30 source lines.
                    0 syntax errors.
-                0.04 seconds total parsing time.
+                0.03 seconds total parsing time.
 
                    0 instructions generated.
                 0.00 seconds total code generation time.

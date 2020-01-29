@@ -16,6 +16,8 @@
 >>> SEMICOLON       line=003, pos=21, text=";"
 004 
 005 {Calculate nothing correctly}
+>>> COMMENT         line=005, pos= 0, text="Calculate nothing correctly"
+>>>                 value=Calculate nothing correctly
 006 VAR
 >>> VAR             line=006, pos= 0, text="VAR"
 007    Number_Of_Balls : Integer;
@@ -24,7 +26,8 @@
 >>> IDENTIFIER      line=007, pos=21, text="Integer"
 >>> SEMICOLON       line=007, pos=28, text=";"
 008    Customer_Count_   : Interger;
->>> IDENTIFIER      line=008, pos= 3, text="Customer_Count_"
+       ^
+*** Invalid character [at "Customer_Count_"]
 >>> COLON           line=008, pos=21, text=":"
 >>> IDENTIFIER      line=008, pos=23, text="Interger"
 >>> SEMICOLON       line=008, pos=31, text=";"
@@ -141,8 +144,8 @@
 >>> END             line=029, pos= 0, text="End"
 
                   29 source lines.
-                   1 syntax errors.
-                0.03 seconds total parsing time.
+                   2 syntax errors.
+                0.04 seconds total parsing time.
 
                    0 instructions generated.
                 0.00 seconds total code generation time.
