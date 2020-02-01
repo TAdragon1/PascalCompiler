@@ -47,11 +47,14 @@ public class PascalWordToken extends PascalToken
 	        // Get the word characters (letter or digit).  The scanner has
 	        // already determined that the first character is a letter.
 	        while (Character.isLetterOrDigit(currentChar) || currentChar == UNDERSCORE) {
-	            textBuffer.append(currentChar);
-	            currentChar = nextChar();  // consume character
 	            
-	            if(currentChar == '_' && peekChar() == ' ') {
-	            	underscoreAtEnd = true;
+	            if (currentChar == '_' && peekChar() == ' ') {
+	            	// underscoreAtEnd = true;
+	            	break;
+	            }
+	            else {
+	            	textBuffer.append(currentChar);
+	            	currentChar = nextChar();  // consume character
 	            }
 	        }
 
@@ -63,11 +66,7 @@ public class PascalWordToken extends PascalToken
 		               ? PascalTokenType.valueOf(text.toUpperCase())  // reserved word
 		               : IDENTIFIER;                                  // identifier
 	        }
-	        else {
-            	text = textBuffer.toString();
-            	type = ERROR;
-                value = INVALID_CHARACTER;
-	        }
+	        
         }
     }
 
