@@ -47,7 +47,7 @@ public class PascalParserTD extends Parser
 
                 // Cross reference only the identifiers.
                 if (tokenType == IDENTIFIER) {
-                    String name = token.getText().toLowerCase();
+                    String name = token.getText(); //.toLowerCase();
 
                     // If it's not already in the symbol table,
                     // create and enter a new entry for the identifier.

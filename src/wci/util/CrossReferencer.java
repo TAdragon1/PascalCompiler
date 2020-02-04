@@ -49,9 +49,9 @@ public class CrossReferencer
     {
         System.out.println();
         System.out.println(String.format(NAME_FORMAT, "Identifier")
-                           + NUMBERS_LABEL);
+                           + "\t" + NUMBERS_LABEL);
         System.out.println(String.format(NAME_FORMAT, "----------")
-                           + NUMBERS_UNDERLINE);
+                           + "\t" + NUMBERS_UNDERLINE);
     }
 
     /**
@@ -64,10 +64,12 @@ public class CrossReferencer
         ArrayList<SymTabEntry> sorted = symTab.sortedEntries();
         for (SymTabEntry entry : sorted) {
             ArrayList<Integer> lineNumbers = entry.getLineNumbers();
-
+            int numTimes = lineNumbers.size();
+            
             // For each entry, print the identifier name
             // followed by the line numbers.
             System.out.print(String.format(NAME_FORMAT, entry.getName()));
+            System.out.print("\t [" + numTimes + "]");
             if (lineNumbers != null) {
                 for (Integer lineNumber : lineNumbers) {
                     System.out.print(String.format(NUMBER_FORMAT, lineNumber));
