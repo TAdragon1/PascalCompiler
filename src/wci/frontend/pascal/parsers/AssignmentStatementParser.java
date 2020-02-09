@@ -42,7 +42,7 @@ public class AssignmentStatementParser extends StatementParser
 
         // Look up the target identifer in the symbol table stack.
         // Enter the identifier into the table if it's not found.
-        String targetName = token.getText().toLowerCase();
+        String targetName = token.getText(); //.toLowerCase();
         SymTabEntry targetId = symTabStack.lookup(targetName);
         if (targetId == null) {
             targetId = symTabStack.enterLocal(targetName);
