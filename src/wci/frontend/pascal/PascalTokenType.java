@@ -15,12 +15,12 @@ import wci.frontend.TokenType;
  */
 public enum PascalTokenType implements TokenType
 {
-	// REMOVE CONST, DOWNTO, GOTO, LABEL, RECORD, TYPE, DOT_DOT
+	// REMOVE CONST, GOTO, LABEL, RECORD, TYPE, DOT_DOT
     // Reserved words.
     AND, ARRAY, BEGIN, CASE, DIV, DO, ELSE, END,
     FILE, FOR, FUNCTION, IF, IN, MOD, NIL, NOT,
     OF, OR, PACKED, PROCEDURE, PROGRAM, REPEAT, SET,
-    THEN, TO, UNTIL, VAR, WHILE, WITH,
+    THEN, TO, DOWNTO, UNTIL, VAR, WHILE, WITH,
 
     // Special symbols.
     PLUS("+"), MINUS("-"), STAR("*"), SLASH("/"), COLON_EQUALS(":="),

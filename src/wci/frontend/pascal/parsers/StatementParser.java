@@ -1,5 +1,7 @@
 package wci.frontend.pascal.parsers;
 
+import java.util.EnumSet;
+
 import wci.frontend.*;
 import wci.frontend.pascal.*;
 import wci.intermediate.*;
@@ -27,6 +29,15 @@ public class StatementParser extends PascalParserTD
     {
         super(parent);
     }
+
+    // Synchronization set for starting a statement.
+    protected static final EnumSet<PascalTokenType> STMT_START_SET =
+       EnumSet.of(BEGIN, CASE, FOR, PascalTokenType.IF, REPEAT, WHILE,
+                  IDENTIFIER, SEMICOLON);
+
+    // Synchronization set for following a statement.
+    protected static final EnumSet<PascalTokenType> STMT_FOLLOW_SET =
+       EnumSet.of(SEMICOLON, END, ELSE, UNTIL, DOT);
 
     /**
      * Parse a statement.
@@ -57,6 +68,38 @@ public class StatementParser extends PascalParserTD
                 break;
             }
 
+            case REPEAT: {
+				RepeatStatementParser repeatParser =
+				    new RepeatStatementParser(this);
+				statementNode = repeatParser.parse(token);
+				break;
+            }
+
+			case WHILE: {
+			    WhileStatementParser whileParser =
+			        new WhileStatementParser(this);
+			    statementNode = whileParser.parse(token);
+			    break;
+			}
+
+			case FOR: {
+			    ForStatementParser forParser = new ForStatementParser(this);
+			    statementNode = forParser.parse(token);
+			    break;
+			}
+
+			case IF: {
+			    IfStatementParser ifParser = new IfStatementParser(this);
+			    statementNode = ifParser.parse(token);
+			    break;
+			}
+			
+			case CASE: {
+			    CaseStatementParser caseParser = new CaseStatementParser(this);
+			    statementNode = caseParser.parse(token);
+			    break;
+			}
+            
             default: {
                 statementNode = ICodeFactory.createICodeNode(NO_OP);
                 break;
@@ -94,6 +137,11 @@ public class StatementParser extends PascalParserTD
                              PascalErrorCode errorCode)
         throws Exception
     {
+    	
+        // Synchronization set for the terminator.
+        EnumSet<PascalTokenType> terminatorSet = STMT_START_SET.clone();
+        terminatorSet.add(terminator);
+    	
         // Loop to parse each statement until the END token
         // or the end of the source file.
         while (!(token instanceof EofToken) &&
@@ -111,17 +159,14 @@ public class StatementParser extends PascalParserTD
                 token = nextToken();  // consume the ;
             }
 
-            // If at the start of the next assignment statement,
-            // then missing a semicolon.
-            else if (tokenType == IDENTIFIER) {
+            // If at the start of the next statement, then missing a semicolon.
+            else if (STMT_START_SET.contains(tokenType)) {
                 errorHandler.flag(token, MISSING_SEMICOLON, this);
             }
 
-            // Unexpected token.
-            else if (tokenType != terminator) {
-                errorHandler.flag(token, UNEXPECTED_TOKEN, this);
-                token = nextToken();  // consume the unexpected token
-            }
+            // Synchronize at the start of the next statement
+            // or at the terminator.
+            token = synchronize(terminatorSet);
         }
 
         // Look for the terminator token.

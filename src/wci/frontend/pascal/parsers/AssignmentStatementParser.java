@@ -7,6 +7,9 @@ import wci.intermediate.*;
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
+
+import java.util.EnumSet;
+
 import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
 
 /**
@@ -27,6 +30,14 @@ public class AssignmentStatementParser extends StatementParser
     {
         super(parent);
     }
+
+     // Synchronization set for the := token.
+     private static final EnumSet<PascalTokenType> COLON_EQUALS_SET =
+         ExpressionParser.EXPR_START_SET.clone();
+     static {
+    	 COLON_EQUALS_SET.add(COLON_EQUALS);
+         COLON_EQUALS_SET.addAll(StatementParser.STMT_FOLLOW_SET);
+     }
 
     /**
      * Parse an assignment statement.
@@ -58,7 +69,8 @@ public class AssignmentStatementParser extends StatementParser
         // The ASSIGN node adopts the variable node as its first child.
         assignNode.addChild(variableNode);
 
-        // Look for the := token.
+        // Synchronize on the := token.
+        token = synchronize(COLON_EQUALS_SET);
         if (token.getType() == COLON_EQUALS) {
             token = nextToken();  // consume the :=
         }
