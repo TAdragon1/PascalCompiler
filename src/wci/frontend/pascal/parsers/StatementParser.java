@@ -99,7 +99,13 @@ public class StatementParser extends PascalParserTD
 			    statementNode = caseParser.parse(token);
 			    break;
 			}
-            
+			
+			case Loop: {
+			    LoopStatementParser loopParser = new LoopStatementParser(this);
+			    statementNode = loopParser.parse(token);
+			    break;
+			}
+
             default: {
                 statementNode = ICodeFactory.createICodeNode(NO_OP);
                 break;
