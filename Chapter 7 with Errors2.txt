@@ -1,0 +1,19 @@
+begin
+a:=1;
+b:=2;
+MYLOOP ( a := 2+*3*10  |  a <= (90 * B - 1)  |  a := a + 90 ) DO
+BEGIN      a := A - 10;    
+   if ( a < (10 + *3) ) then 
+	Begin
+		MYLOOP ( b := 3*10 - b  |  
+		(b + 3) <= (100 - 90 * 5 - 1)  
+		|  b := b - 3 ) DO a:= a - 1
+	end
+    else
+	b := 3 - a < 1 + B;
+	a := 3 + a < 3 > 2;
+	A := 3 + a + b;
+    End
+End.
+
+	

@@ -60,7 +60,7 @@ public class PascalWordToken extends PascalToken
 
 	        if (!underscoreAtEnd) {
 		        text = textBuffer.toString();
-		        // System.out.println(text);
+		        //System.out.println(text);
 		        // Is it a reserved word or an identifier?
 		        type = (RESERVED_WORDS.contains(text.toLowerCase()))
 		               ? PascalTokenType.valueOf(text.toUpperCase())  // reserved word
