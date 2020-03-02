@@ -105,6 +105,12 @@ public class StatementParser extends PascalParserTD
 			    statementNode = loopParser.parse(token);
 			    break;
 			}
+			
+			case WHEN: {
+				WhenStatementParser whenParser = new WhenStatementParser(this);
+			    statementNode = whenParser.parse(token);
+			    break;
+			}
 
             default: {
                 statementNode = ICodeFactory.createICodeNode(NO_OP);
