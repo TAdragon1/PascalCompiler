@@ -1,5 +1,7 @@
 package wci.frontend.pascal.parsers;
 
+import java.util.EnumSet;
+
 import wci.frontend.*;
 import wci.frontend.pascal.*;
 import wci.intermediate.*;
@@ -7,9 +9,6 @@ import wci.intermediate.*;
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
-
-import java.util.EnumSet;
-
 import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
 
 /**
@@ -31,13 +30,13 @@ public class AssignmentStatementParser extends StatementParser
         super(parent);
     }
 
-     // Synchronization set for the := token.
-     private static final EnumSet<PascalTokenType> COLON_EQUALS_SET =
-         ExpressionParser.EXPR_START_SET.clone();
-     static {
-    	 COLON_EQUALS_SET.add(COLON_EQUALS);
-         COLON_EQUALS_SET.addAll(StatementParser.STMT_FOLLOW_SET);
-     }
+    // Synchronization set for the := token.
+    private static final EnumSet<PascalTokenType> COLON_EQUALS_SET =
+        ExpressionParser.EXPR_START_SET.clone();
+    static {
+        COLON_EQUALS_SET.add(COLON_EQUALS);
+        COLON_EQUALS_SET.addAll(StatementParser.STMT_FOLLOW_SET);
+    }
 
     /**
      * Parse an assignment statement.
@@ -53,7 +52,7 @@ public class AssignmentStatementParser extends StatementParser
 
         // Look up the target identifer in the symbol table stack.
         // Enter the identifier into the table if it's not found.
-        String targetName = token.getText(); //.toLowerCase();
+        String targetName = token.getText().toLowerCase();
         SymTabEntry targetId = symTabStack.lookup(targetName);
         if (targetId == null) {
             targetId = symTabStack.enterLocal(targetName);

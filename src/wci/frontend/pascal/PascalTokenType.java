@@ -15,29 +15,28 @@ import wci.frontend.TokenType;
  */
 public enum PascalTokenType implements TokenType
 {
-	// REMOVE CONST, GOTO, LABEL, RECORD, TYPE, DOT_DOT
     // Reserved words.
-    AND, ARRAY, BEGIN, CASE, DIV, DO, ELSE, END,
-    FILE, FOR, FUNCTION, IF, IN, MOD, NIL, NOT,
-    OF, OR, PACKED, PROCEDURE, PROGRAM, REPEAT, SET,
-    THEN, TO, DOWNTO, UNTIL, VAR, WHILE, WITH, LOOP,
+    AND, ARRAY, BEGIN, CASE, CONST, DIV, DO, DOWNTO, ELSE, END,
+    FILE, FOR, FUNCTION, GOTO, IF, IN, LABEL, MOD, NIL, NOT,
+    OF, OR, PACKED, PROCEDURE, PROGRAM, RECORD, REPEAT, SET,
+    THEN, TO, TYPE, UNTIL, VAR, WHILE, WITH,
 
     // Special symbols.
     PLUS("+"), MINUS("-"), STAR("*"), SLASH("/"), COLON_EQUALS(":="),
     DOT("."), COMMA(","), SEMICOLON(";"), COLON(":"), QUOTE("'"),
-    EQUALS("="), NOT_EQUALS("><"), LESS_THAN("<"), LESS_EQUALS("<="),
+    EQUALS("="), NOT_EQUALS("<>"), LESS_THAN("<"), LESS_EQUALS("<="),
     GREATER_EQUALS(">="), GREATER_THAN(">"), LEFT_PAREN("("), RIGHT_PAREN(")"),
     LEFT_BRACKET("["), RIGHT_BRACKET("]"), LEFT_BRACE("{"), RIGHT_BRACE("}"),
-    UP_ARROW("^"),
+    UP_ARROW("^"), DOT_DOT(".."),
 
-    IDENTIFIER, INTEGER, REAL, STRING, COMMENT,
+    IDENTIFIER, INTEGER, REAL, STRING,
     ERROR, END_OF_FILE;
 
     private static final int FIRST_RESERVED_INDEX = AND.ordinal();
-    private static final int LAST_RESERVED_INDEX  = LOOP.ordinal();
+    private static final int LAST_RESERVED_INDEX  = WITH.ordinal();
 
     private static final int FIRST_SPECIAL_INDEX = PLUS.ordinal();
-    private static final int LAST_SPECIAL_INDEX  = UP_ARROW.ordinal();
+    private static final int LAST_SPECIAL_INDEX  = DOT_DOT.ordinal();
 
     private String text;  // token text
 

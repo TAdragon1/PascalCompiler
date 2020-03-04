@@ -3,7 +3,6 @@ package wci.frontend.pascal.tokens;
 import wci.frontend.*;
 import wci.frontend.pascal.*;
 
-import static wci.frontend.pascal.PascalErrorCode.INVALID_CHARACTER;
 import static wci.frontend.pascal.PascalTokenType.*;
 
 /**
@@ -16,9 +15,7 @@ import static wci.frontend.pascal.PascalTokenType.*;
  */
 public class PascalWordToken extends PascalToken
 {
-	public static final char UNDERSCORE = '_';
-	
-	/**
+    /**
      * Constructor.
      * @param source the source from where to fetch the token's characters.
      * @throws Exception if an error occurred.
@@ -39,36 +36,18 @@ public class PascalWordToken extends PascalToken
         StringBuilder textBuffer = new StringBuilder();
         char currentChar = currentChar();
 
-        boolean underscoreAtEnd = false;
-
-        // At this point, currentChar is the first character of the word token
-        if (currentChar != UNDERSCORE) {
-        	
-	        // Get the word characters (letter or digit).  The scanner has
-	        // already determined that the first character is a letter.
-	        while (Character.isLetterOrDigit(currentChar) || currentChar == UNDERSCORE) {
-	            
-	            if (currentChar == '_' && peekChar() == ' ') {
-	            	// underscoreAtEnd = true;
-	            	break;
-	            }
-	            else {
-	            	textBuffer.append(currentChar);
-	            	currentChar = nextChar();  // consume character
-	            }
-	        }
-
-	        if (!underscoreAtEnd) {
-		        text = textBuffer.toString();
-		        //System.out.println(text);
-		        // Is it a reserved word or an identifier?
-		        type = (RESERVED_WORDS.contains(text.toLowerCase()))
-		               ? PascalTokenType.valueOf(text.toUpperCase())  // reserved word
-		               : IDENTIFIER;                                  // identifier
-	        }
-	        
+        // Get the word characters (letter or digit).  The scanner has
+        // already determined that the first character is a letter.
+        while (Character.isLetterOrDigit(currentChar)) {
+            textBuffer.append(currentChar);
+            currentChar = nextChar();  // consume character
         }
+
+        text = textBuffer.toString();
+
+        // Is it a reserved word or an identifier?
+        type = (RESERVED_WORDS.contains(text.toLowerCase()))
+               ? PascalTokenType.valueOf(text.toUpperCase())  // reserved word
+               : IDENTIFIER;                                  // identifier
     }
-
-
 }

@@ -55,16 +55,15 @@ public class PascalStringToken extends PascalToken
                 currentChar = nextChar();  // consume character
             }
 
-            // REMOVE REPEATED APOSTROPHES
             // Quote?  Each pair of adjacent quotes represents a single-quote.
-//            if (currentChar == '\'') {
-//                while ((currentChar == '\'') && (peekChar() == '\'')) {
-//                    textBuffer.append("''");
-//                    valueBuffer.append(currentChar); // append single-quote
-//                    currentChar = nextChar();        // consume pair of quotes
-//                    currentChar = nextChar();
-//                }
-//            }
+            if (currentChar == '\'') {
+                while ((currentChar == '\'') && (peekChar() == '\'')) {
+                    textBuffer.append("''");
+                    valueBuffer.append(currentChar); // append single-quote
+                    currentChar = nextChar();        // consume pair of quotes
+                    currentChar = nextChar();
+                }
+            }
         } while ((currentChar != '\'') && (currentChar != EOF));
 
         if (currentChar == '\'') {

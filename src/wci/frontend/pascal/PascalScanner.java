@@ -53,9 +53,6 @@ public class PascalScanner extends Scanner
         else if (currentChar == '\'') {
             token = new PascalStringToken(source);
         }
-        else if (currentChar == '{') {
-            token = new PascalCommentToken(source);
-        }
         else if (PascalTokenType.SPECIAL_SYMBOLS
                  .containsKey(Character.toString(currentChar))) {
             token = new PascalSpecialSymbolToken(source);
@@ -78,24 +75,24 @@ public class PascalScanner extends Scanner
     {
         char currentChar = currentChar();
 
-        while (Character.isWhitespace(currentChar) ) { // || (currentChar == '{')) {
+        while (Character.isWhitespace(currentChar) || (currentChar == '{')) {
 
-//            // Start of a comment?
-//            if (currentChar == '{') {
-//                do {
-//                    currentChar = nextChar();  // consume comment characters
-//                } while ((currentChar != '}') && (currentChar != EOF));
-//
-//                // Found closing '}'?
-//                if (currentChar == '}') {
-//                    currentChar = nextChar();  // consume the '}'
-//                }
-//            }
+            // Start of a comment?
+            if (currentChar == '{') {
+                do {
+                    currentChar = nextChar();  // consume comment characters
+                } while ((currentChar != '}') && (currentChar != EOF));
+
+                // Found closing '}'?
+                if (currentChar == '}') {
+                    currentChar = nextChar();  // consume the '}'
+                }
+            }
 
             // Not a comment.
-//            else {
+            else {
                 currentChar = nextChar();  // consume whitespace character
-//            }
+            }
         }
     }
 }

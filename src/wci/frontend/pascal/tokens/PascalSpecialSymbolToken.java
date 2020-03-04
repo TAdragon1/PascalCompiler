@@ -61,7 +61,7 @@ public class PascalSpecialSymbolToken extends PascalToken
                 break;
             }
 
-            // < or <=  NO LONGER [or <>]
+            // < or <= or <>
             case '<': {
                 currentChar = nextChar();  // consume '<';
 
@@ -69,26 +69,21 @@ public class PascalSpecialSymbolToken extends PascalToken
                     text += currentChar;
                     nextChar();  // consume '='
                 }
-//                else if (currentChar == '>') {
-//                    text += currentChar;
-//                    nextChar();  // consume '>'
-//                }
+                else if (currentChar == '>') {
+                    text += currentChar;
+                    nextChar();  // consume '>'
+                }
 
                 break;
             }
 
-            // > or >= ADDING or ><
+            // > or >=
             case '>': {
                 currentChar = nextChar();  // consume '>';
 
                 if (currentChar == '=') {
                     text += currentChar;
                     nextChar();  // consume '='
-                }
-                // ADDED
-                else if (currentChar == '<') {
-                	text += currentChar;
-                	nextChar();  // consume '<'
                 }
 
                 break;
@@ -98,11 +93,10 @@ public class PascalSpecialSymbolToken extends PascalToken
             case '.': {
                 currentChar = nextChar();  // consume '.';
 
-                // NO DOT_DOT
-//                if (currentChar == '.') {
-//                    text += currentChar;
-//                    nextChar();  // consume '.'
-//                }
+                if (currentChar == '.') {
+                    text += currentChar;
+                    nextChar();  // consume '.'
+                }
 
                 break;
             }

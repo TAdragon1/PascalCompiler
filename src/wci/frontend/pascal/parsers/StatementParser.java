@@ -32,12 +32,12 @@ public class StatementParser extends PascalParserTD
 
     // Synchronization set for starting a statement.
     protected static final EnumSet<PascalTokenType> STMT_START_SET =
-       EnumSet.of(BEGIN, CASE, FOR, PascalTokenType.IF, REPEAT, WHILE,
-                  IDENTIFIER, SEMICOLON, PascalTokenType.LOOP);
+        EnumSet.of(BEGIN, CASE, FOR, PascalTokenType.IF, REPEAT, WHILE,
+                   IDENTIFIER, SEMICOLON);
 
     // Synchronization set for following a statement.
     protected static final EnumSet<PascalTokenType> STMT_FOLLOW_SET =
-       EnumSet.of(SEMICOLON, END, ELSE, UNTIL, DOT);
+        EnumSet.of(SEMICOLON, END, ELSE, UNTIL, DOT);
 
     /**
      * Parse a statement.
@@ -69,42 +69,36 @@ public class StatementParser extends PascalParserTD
             }
 
             case REPEAT: {
-				RepeatStatementParser repeatParser =
-				    new RepeatStatementParser(this);
-				statementNode = repeatParser.parse(token);
-				break;
+                RepeatStatementParser repeatParser =
+                    new RepeatStatementParser(this);
+                statementNode = repeatParser.parse(token);
+                break;
             }
 
-			case WHILE: {
-			    WhileStatementParser whileParser =
-			        new WhileStatementParser(this);
-			    statementNode = whileParser.parse(token);
-			    break;
-			}
+            case WHILE: {
+                WhileStatementParser whileParser =
+                    new WhileStatementParser(this);
+                statementNode = whileParser.parse(token);
+                break;
+            }
 
-			case FOR: {
-			    ForStatementParser forParser = new ForStatementParser(this);
-			    statementNode = forParser.parse(token);
-			    break;
-			}
+            case FOR: {
+                ForStatementParser forParser = new ForStatementParser(this);
+                statementNode = forParser.parse(token);
+                break;
+            }
 
-			case IF: {
-			    IfStatementParser ifParser = new IfStatementParser(this);
-			    statementNode = ifParser.parse(token);
-			    break;
-			}
-			
-			case CASE: {
-			    CaseStatementParser caseParser = new CaseStatementParser(this);
-			    statementNode = caseParser.parse(token);
-			    break;
-			}
-			
-			case LOOP: {
-			    LoopStatementParser loopParser = new LoopStatementParser(this);
-			    statementNode = loopParser.parse(token);
-			    break;
-			}
+            case IF: {
+                IfStatementParser ifParser = new IfStatementParser(this);
+                statementNode = ifParser.parse(token);
+                break;
+            }
+
+            case CASE: {
+                CaseStatementParser caseParser = new CaseStatementParser(this);
+                statementNode = caseParser.parse(token);
+                break;
+            }
 
             default: {
                 statementNode = ICodeFactory.createICodeNode(NO_OP);
@@ -143,11 +137,10 @@ public class StatementParser extends PascalParserTD
                              PascalErrorCode errorCode)
         throws Exception
     {
-    	
         // Synchronization set for the terminator.
         EnumSet<PascalTokenType> terminatorSet = STMT_START_SET.clone();
         terminatorSet.add(terminator);
-    	
+
         // Loop to parse each statement until the END token
         // or the end of the source file.
         while (!(token instanceof EofToken) &&

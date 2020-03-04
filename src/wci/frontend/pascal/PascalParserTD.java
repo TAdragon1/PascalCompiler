@@ -1,5 +1,7 @@
 package wci.frontend.pascal;
 
+import java.util.EnumSet;
+
 import wci.frontend.*;
 import wci.frontend.pascal.parsers.*;
 import wci.intermediate.*;
@@ -8,8 +10,6 @@ import wci.message.*;
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.message.MessageType.PARSER_SUMMARY;
-
-import java.util.EnumSet;
 
 /**
  * <h1>PascalParserTD</h1>
@@ -106,7 +106,7 @@ public class PascalParserTD extends Parser
     {
         return errorHandler.getErrorCount();
     }
-    
+
     /**
      * Synchronize the parser.
      * @param syncSet the set of token types for synchronizing the parser.
@@ -117,14 +117,14 @@ public class PascalParserTD extends Parser
         throws Exception
     {
         Token token = currentToken();
-    
+
         // If the current token is not in the synchronization set,
         // then it is unexpected and the parser must recover.
         if (!syncSet.contains(token.getType())) {
-    
+
             // Flag the unexpected token.
             errorHandler.flag(token, UNEXPECTED_TOKEN, this);
-    
+
             // Recover by skipping tokens that are not
             // in the synchronization set.
             do {
@@ -132,7 +132,7 @@ public class PascalParserTD extends Parser
             } while (!(token instanceof EofToken) &&
                      !syncSet.contains(token.getType()));
        }
-    
+
        return token;
     }
 }
