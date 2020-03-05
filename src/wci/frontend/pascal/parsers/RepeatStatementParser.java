@@ -3,6 +3,7 @@ package wci.frontend.pascal.parsers;
 import wci.frontend.*;
 import wci.frontend.pascal.*;
 import wci.intermediate.*;
+import wci.intermediate.icodeimpl.ICodeNodeTypeImpl;
 
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
@@ -40,7 +41,7 @@ public class RepeatStatementParser extends StatementParser
         token = nextToken();  // consume the REPEAT
 
         // Create the LOOP and TEST nodes.
-        ICodeNode loopNode = ICodeFactory.createICodeNode(LOOP);
+        ICodeNode loopNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.LOOP);
         ICodeNode testNode = ICodeFactory.createICodeNode(TEST);
 
         // Parse the statement list terminated by the UNTIL token.

@@ -1,7 +1,7 @@
 BEGIN {IF statements}
     i := 3;  j := 4;
 
-    IF i = j THEN t := 200
+    IF (i = j) THEN t := 200
              ELSE f := -200;
 
     IF i < j THEN t := 300;

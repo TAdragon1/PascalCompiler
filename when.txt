@@ -1,0 +1,12 @@
+Begin
+Infected := 7;
+Dead := 6;
+FatalityRate := 0;
+When ( Infected - (Dead * 50) )
+    Lessthan0
+        FatalityRate := Dead / Infected;
+    equal0
+        FatalityRate := 2;
+    Greaterthan0
+        FatalityRate := 1;
+End.

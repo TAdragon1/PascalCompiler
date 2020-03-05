@@ -51,7 +51,7 @@ public class WhileStatementParser extends StatementParser
         token = nextToken();  // consume the WHILE
 
         // Create LOOP, TEST, and NOT nodes.
-        ICodeNode loopNode = ICodeFactory.createICodeNode(LOOP);
+        ICodeNode loopNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.LOOP);
         ICodeNode breakNode = ICodeFactory.createICodeNode(TEST);
         ICodeNode notNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NOT);
 

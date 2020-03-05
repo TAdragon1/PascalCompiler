@@ -16,10 +16,10 @@ import wci.frontend.TokenType;
 public enum PascalTokenType implements TokenType
 {
     // Reserved words.
-    AND, ARRAY, BEGIN, CASE, CONST, DIV, DO, DOWNTO, ELSE, END,
-    FILE, FOR, FUNCTION, GOTO, IF, IN, LABEL, MOD, NIL, NOT,
+    AND, ARRAY, BEGIN, CASE, CONST, DIV, DO, DOWNTO, ELSE, END, EQUAL0,
+    FILE, FOR, FUNCTION, GOTO, GREATERTHAN0, IF, IN, LABEL, LESSTHAN0, LOOP, MOD, NIL, NOT,
     OF, OR, PACKED, PROCEDURE, PROGRAM, RECORD, REPEAT, SET,
-    THEN, TO, TYPE, UNTIL, VAR, WHILE, WITH,
+    THEN, TO, TYPE, UNTIL, VAR, WHEN, WHILE, WITH,
 
     // Special symbols.
     PLUS("+"), MINUS("-"), STAR("*"), SLASH("/"), COLON_EQUALS(":="),

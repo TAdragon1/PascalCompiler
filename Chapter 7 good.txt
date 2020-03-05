@@ -1,0 +1,18 @@
+Begin
+a:=1;
+b:=2;
+Loop ( a := 2+3*10  |  a <= (90 * 5 - 1)  |  a := a + 90 ) DO
+   BEGIN      
+   a := a - 10;    
+   if ( a < (10 + 3) ) then 
+	Begin
+		Loop ( b := 3*10 - b  |  
+		(b + 3) <= (100 - 90 * 5 - 1)  
+		|  b := b - 3 ) DO a:=a-1
+	end
+    else
+	b := 3 - a < 1 + b
+    End
+End.
+
+		
