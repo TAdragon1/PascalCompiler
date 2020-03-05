@@ -93,7 +93,7 @@ public class WhenStatementParser extends StatementParser
         lessThan0Node.addChild(whenExpression);
 
         //Add 0 node
-        ICodeNode zeroNode = ICodeFactory.createICodeNode(VARIABLE);
+        ICodeNode zeroNode = ICodeFactory.createICodeNode(INTEGER_CONSTANT);
         zeroNode.setAttribute(VALUE, 0);
         lessThan0Node.addChild(zeroNode);
         
@@ -121,7 +121,7 @@ public class WhenStatementParser extends StatementParser
 
         // EQUAL0
         ICodeNodeType nodeTypeEQ = EQ;
-        ICodeNode equal0Node = ICodeFactory.createICodeNode(nodeType);
+        ICodeNode equal0Node = ICodeFactory.createICodeNode(nodeTypeEQ);
         equal0Node.addChild(whenExpression);
 
         // Add 0 node
@@ -155,7 +155,7 @@ public class WhenStatementParser extends StatementParser
 
         // GREATERTHAN0
         ICodeNodeType nodeTypeGT = GT;
-        ICodeNode greaterThan0Node = ICodeFactory.createICodeNode(nodeType);
+        ICodeNode greaterThan0Node = ICodeFactory.createICodeNode(nodeTypeGT);
         greaterThan0Node.addChild(whenExpression);
 
         // Add 0 node
