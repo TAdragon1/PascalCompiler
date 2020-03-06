@@ -1,7 +1,7 @@
 Begin
 Infected := 10;
-Recovered := 5;
-Dead := 0;
+Recovered := 0;
+Dead := 8;
 Day := 0;
 
 Loop ( Day := 1;  | (Infected - Recovered) > (Dead * Dead) | Day := Day + 1 ) do 

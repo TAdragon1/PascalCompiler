@@ -1,17 +1,35 @@
 Run 1
-
-infected = 12.1
-recovered = 7.772
-dead = 2.31
+>>> LINE 002: infected = 10
+>>> LINE 003: recovered = 5
+>>> LINE 004: dead = 0
+>>> LINE 005: day = 0
+>>> LINE 007: day = 1
+>>> LINE 009: infected = 11.0
+>>> LINE 012: recovered = 6.3199997
+>>> LINE 013: dead = 1.1
+>>> LINE 007: day = 2
+>>> LINE 009: infected = 12.1
+>>> LINE 012: recovered = 7.772
+>>> LINE 013: dead = 2.31
+>>> LINE 007: day = 3
 
 Run 2
-
-infected = 121.0
-recovered = 41.52
-dead = 17.1
+>>> LINE 002: infected = 100
+>>> LINE 003: recovered = 5
+>>> LINE 004: dead = 5
+>>> LINE 005: day = 0
+>>> LINE 007: day = 1
+>>> LINE 009: infected = 110.0
+>>> LINE 015: recovered = 27.0
+>>> LINE 007: day = 2
+>>> LINE 009: infected = 121.0
+>>> LINE 012: recovered = 41.52
+>>> LINE 013: dead = 17.1
+>>> LINE 007: day = 3
 
 Run 3
-
-infected = 10
-recovered = 0
-dead = 8
+>>> LINE 002: infected = 10
+>>> LINE 003: recovered = 0
+>>> LINE 004: dead = 8
+>>> LINE 005: day = 0
+>>> LINE 007: day = 1
