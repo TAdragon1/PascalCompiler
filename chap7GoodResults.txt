@@ -17,7 +17,7 @@
 
                   16 source lines.
                    0 syntax errors.
-                0.04 seconds total parsing time.
+                0.02 seconds total parsing time.
 
 ===== INTERMEDIATE CODE =====
 
@@ -43,24 +43,19 @@
         </ASSIGN>
         <LOOP>
             <TEST>
-                <LE>
-                    <VARIABLE id="a" level="0" />
-                    <MULTIPLY>
-                        <INTEGER_CONSTANT value="90" />
-                        <SUBTRACT>
-                            <INTEGER_CONSTANT value="5" />
-                            <INTEGER_CONSTANT value="1" />
-                        </SUBTRACT>
-                    </MULTIPLY>
-                </LE>
+                <NOT>
+                    <LE>
+                        <VARIABLE id="a" level="0" />
+                        <MULTIPLY>
+                            <INTEGER_CONSTANT value="90" />
+                            <SUBTRACT>
+                                <INTEGER_CONSTANT value="5" />
+                                <INTEGER_CONSTANT value="1" />
+                            </SUBTRACT>
+                        </MULTIPLY>
+                    </LE>
+                </NOT>
             </TEST>
-            <ASSIGN line="4">
-                <VARIABLE id="a" level="0" />
-                <ADD>
-                    <VARIABLE id="a" level="0" />
-                    <INTEGER_CONSTANT value="90" />
-                </ADD>
-            </ASSIGN>
             <COMPOUND line="5">
                 <ASSIGN line="6">
                     <VARIABLE id="a" level="0" />
@@ -91,35 +86,41 @@
                             </ASSIGN>
                             <LOOP>
                                 <TEST>
-                                    <LE>
-                                        <ADD>
-                                            <VARIABLE id="b" level="0" />
-                                            <INTEGER_CONSTANT value="3" />
-                                        </ADD>
-                                        <MULTIPLY>
-                                            <SUBTRACT>
-                                                <INTEGER_CONSTANT value="100" />
-                                                <INTEGER_CONSTANT value="90" />
-                                            </SUBTRACT>
-                                            <SUBTRACT>
-                                                <INTEGER_CONSTANT value="5" />
-                                                <INTEGER_CONSTANT value="1" />
-                                            </SUBTRACT>
-                                        </MULTIPLY>
-                                    </LE>
+                                    <NOT>
+                                        <LE>
+                                            <ADD>
+                                                <VARIABLE id="b" level="0" />
+                                                <INTEGER_CONSTANT value="3" />
+                                            </ADD>
+                                            <MULTIPLY>
+                                                <SUBTRACT>
+                                                    <INTEGER_CONSTANT
+                                                        value="100" />
+                                                    <INTEGER_CONSTANT value="90"
+                                                    />
+                                                </SUBTRACT>
+                                                <SUBTRACT>
+                                                    <INTEGER_CONSTANT value="5"
+                                                    />
+                                                    <INTEGER_CONSTANT value="1"
+                                                    />
+                                                </SUBTRACT>
+                                            </MULTIPLY>
+                                        </LE>
+                                    </NOT>
                                 </TEST>
-                                <ASSIGN line="9">
-                                    <VARIABLE id="b" level="0" />
-                                    <SUBTRACT>
-                                        <VARIABLE id="b" level="0" />
-                                        <INTEGER_CONSTANT value="3" />
-                                    </SUBTRACT>
-                                </ASSIGN>
                                 <ASSIGN line="11">
                                     <VARIABLE id="a" level="0" />
                                     <SUBTRACT>
                                         <VARIABLE id="a" level="0" />
                                         <INTEGER_CONSTANT value="1" />
+                                    </SUBTRACT>
+                                </ASSIGN>
+                                <ASSIGN line="9">
+                                    <VARIABLE id="b" level="0" />
+                                    <SUBTRACT>
+                                        <VARIABLE id="b" level="0" />
+                                        <INTEGER_CONSTANT value="3" />
                                     </SUBTRACT>
                                 </ASSIGN>
                             </LOOP>
@@ -140,6 +141,13 @@
                     </ASSIGN>
                 </IF>
             </COMPOUND>
+            <ASSIGN line="4">
+                <VARIABLE id="a" level="0" />
+                <ADD>
+                    <VARIABLE id="a" level="0" />
+                    <INTEGER_CONSTANT value="90" />
+                </ADD>
+            </ASSIGN>
         </LOOP>
     </COMPOUND>
 </COMPOUND>

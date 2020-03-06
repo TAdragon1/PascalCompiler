@@ -15,10 +15,10 @@ import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
 /**
  * <h1>LoopStatementParser</h1>
  *
- * <p>Parse a FOR statement.</p>
+ * <p>Parse a Loop statement.</p>
  *
- * <p>Copyright (c) 2009 by Ronald Mak</p>
- * <p>For instructional purposes only.  No warranties.</p>
+ *
+ *
  */
 public class LoopStatementParser extends StatementParser
 {
@@ -33,16 +33,16 @@ public class LoopStatementParser extends StatementParser
 
     // Synchronization set for TO or DOWNTO.
     private static final EnumSet<PascalTokenType> TO_DOWNTO_SET =
-        ExpressionParser.EXPR_START_SET.clone();
+            ExpressionParser.EXPR_START_SET.clone();
     static {
         TO_DOWNTO_SET.add(TO);
         TO_DOWNTO_SET.add(DOWNTO);
         TO_DOWNTO_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
-    
+
     // Synchronization set for DO.
     private static final EnumSet<PascalTokenType> DO_SET =
-        StatementParser.STMT_START_SET.clone();
+            StatementParser.STMT_START_SET.clone();
     static {
         DO_SET.add(DO);
         DO_SET.addAll(StatementParser.STMT_FOLLOW_SET);
@@ -55,26 +55,32 @@ public class LoopStatementParser extends StatementParser
      * @throws Exception if an error occurred.
      */
     public ICodeNode parse(Token token)
-        throws Exception
+            throws Exception
     {
         token = nextToken();  // consume the Loop
-        
+
         token = nextToken();  // consume the (
-        
+
         Token targetToken = token;
 
         // Create the loop COMPOUND, LOOP, and TEST nodes.
         ICodeNode compoundNode = ICodeFactory.createICodeNode(COMPOUND);
         ICodeNode loopNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.LOOP);
         ICodeNode testNode = ICodeFactory.createICodeNode(TEST);
+        ICodeNode notNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NOT);
 
         // Parse the embedded initial assignment.
         AssignmentStatementParser assignmentParser =
-            new AssignmentStatementParser(this);
+                new AssignmentStatementParser(this);
         ICodeNode initAssignNode = assignmentParser.parse(token);
 
+        token = currentToken();
+        if (token.getType() == SEMICOLON){
+            token = nextToken();
+        }
+
         token = nextToken();  // consume the |
-        
+
         // Set the current line number attribute.
         setLineNumber(initAssignNode, targetToken);
 
@@ -86,26 +92,27 @@ public class LoopStatementParser extends StatementParser
         // parse the loop condition
         ExpressionParser expressionParser = new ExpressionParser(this);
         ICodeNode expressionNode = expressionParser.parse(token);
-        
+
         // The TEST node adopts the relational operator node as its only child.
         // The LOOP node adopts the TEST node as its first child.
-        testNode.addChild(expressionNode);
+        notNode.addChild(expressionNode);
+        testNode.addChild(notNode);
         loopNode.addChild(testNode);
 
         // second identifier := expression
         token = nextToken();  // consume the |
-        
+
         AssignmentStatementParser assignmentParser2 =
-        		new AssignmentStatementParser(this);
+                new AssignmentStatementParser(this);
         ICodeNode initAssignNode2 = assignmentParser2.parse(token);
-        
-        loopNode.addChild(initAssignNode2);
+
+        // loopNode.addChild(initAssignNode2); moved to after adding statement
 
         // Set the current line number attribute.
         setLineNumber(initAssignNode2, targetToken);
-        
+
         token = nextToken();  // consume the )
-        
+
         // Synchronize at the DO.
         token = synchronize(DO_SET);
         if (token.getType() == DO) {
@@ -119,7 +126,7 @@ public class LoopStatementParser extends StatementParser
         // node as its second child.
         StatementParser statementParser = new StatementParser(this);
         loopNode.addChild(statementParser.parse(token));
-        
+        loopNode.addChild(initAssignNode2);
         return compoundNode;
     }
 }
