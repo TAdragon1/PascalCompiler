@@ -67,6 +67,7 @@ public class LoopStatementParser extends StatementParser
         ICodeNode compoundNode = ICodeFactory.createICodeNode(COMPOUND);
         ICodeNode loopNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.LOOP);
         ICodeNode testNode = ICodeFactory.createICodeNode(TEST);
+        ICodeNode notNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NOT);
 
         // Parse the embedded initial assignment.
         AssignmentStatementParser assignmentParser =
@@ -94,7 +95,8 @@ public class LoopStatementParser extends StatementParser
 
         // The TEST node adopts the relational operator node as its only child.
         // The LOOP node adopts the TEST node as its first child.
-        testNode.addChild(expressionNode);
+        notNode.addChild(expressionNode);
+        testNode.addChild(notNode);
         loopNode.addChild(testNode);
 
         // second identifier := expression
@@ -104,7 +106,7 @@ public class LoopStatementParser extends StatementParser
                 new AssignmentStatementParser(this);
         ICodeNode initAssignNode2 = assignmentParser2.parse(token);
 
-        loopNode.addChild(initAssignNode2);
+        // loopNode.addChild(initAssignNode2); moved to after adding statement
 
         // Set the current line number attribute.
         setLineNumber(initAssignNode2, targetToken);
@@ -124,7 +126,7 @@ public class LoopStatementParser extends StatementParser
         // node as its second child.
         StatementParser statementParser = new StatementParser(this);
         loopNode.addChild(statementParser.parse(token));
-
+        loopNode.addChild(initAssignNode2);
         return compoundNode;
     }
 }
