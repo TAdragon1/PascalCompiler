@@ -1,0 +1,23 @@
+Begin
+Infected := 10;
+Recovered := 0;
+Dead := 8;
+Day := 0;
+Day := 1;
+
+While (Infected - Recovered) > (Dead * Dead) do
+Begin
+	Infected := Infected * 1.10;
+	If ( Dead - Recovered ) < 0 Then
+	Begin
+		Recovered := Recovered + (infected * 0.120);
+		Dead := Dead + (infected * 0.1);
+		End
+	Else If Dead - Recovered = 0 Then Recovered := Recovered + (infected * 0.20)
+	Else If Dead - Recovered > 0 Then
+	Begin
+		Dead := Dead * Dead;
+	End;
+	Day := Day + 1;
+eND
+end.

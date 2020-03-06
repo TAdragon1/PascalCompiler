@@ -110,6 +110,8 @@ public class WhenStatementParser extends StatementParser
             token = nextToken(); // CONSUME the ;
         }
 
+        Token targetToken = currentToken();
+
         // Synchronize at the EQUAL0.
         token = synchronize(EQUAL0_SET);
         if (token.getType() == EQUAL0) {
@@ -130,6 +132,9 @@ public class WhenStatementParser extends StatementParser
         // Create IF node
         ICodeNode ifEQNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.IF);
 
+        // Set the current line number as an attribute.
+        setLineNumber(ifEQNode, targetToken);
+
         // Add Expression as child
         ifEQNode.addChild(equal0Node);
 
@@ -143,6 +148,8 @@ public class WhenStatementParser extends StatementParser
         if (token.getType() == SEMICOLON){
             token = nextToken(); // CONSUME the ;
         }
+
+        targetToken = currentToken();
 
         // Synchronize at the GREATERTHAN0.
         token = synchronize(GREATERTHAN0_SET);
@@ -163,6 +170,9 @@ public class WhenStatementParser extends StatementParser
 
         // Create IF node
         ICodeNode ifGTNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.IF);
+
+        // Set the current line number as an attribute.
+        setLineNumber(ifGTNode, targetToken);
 
         // Add Expression as child
         ifGTNode.addChild(greaterThan0Node);

@@ -73,6 +73,11 @@ public class LoopStatementParser extends StatementParser
                 new AssignmentStatementParser(this);
         ICodeNode initAssignNode = assignmentParser.parse(token);
 
+        token = currentToken();
+        if (token.getType() == SEMICOLON){
+            token = nextToken();
+        }
+
         token = nextToken();  // consume the |
 
         // Set the current line number attribute.
