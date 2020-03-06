@@ -1,0 +1,17 @@
+Run 1
+
+infected = 12.1
+recovered = 7.772
+dead = 2.31
+
+Run 2
+
+infected = 121.0
+recovered = 41.52
+dead = 17.1
+
+Run 3
+
+infected = 10
+recovered = 0
+dead = 8
