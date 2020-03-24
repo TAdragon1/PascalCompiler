@@ -48,6 +48,14 @@ public class LoopStatementParser extends StatementParser
         DO_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
 
+    // Synchronization set for BAR.
+    private static final EnumSet<PascalTokenType> BAR_SET =
+            StatementParser.STMT_START_SET.clone();
+    static {
+        BAR_SET.add(BAR);
+        BAR_SET.addAll(StatementParser.STMT_FOLLOW_SET);
+    }
+
     /**
      * Parse the Loop statement.
      * @param token the initial token.
@@ -79,7 +87,13 @@ public class LoopStatementParser extends StatementParser
             token = nextToken();
         }
 
-        token = nextToken();  // consume the |
+        token = synchronize(BAR_SET);
+        if (token.getType() == BAR) {
+            token = nextToken();  // consume the BAR
+        }
+        else {
+            errorHandler.flag(token, MISSING_BAR, this);
+        }
 
         // Set the current line number attribute.
         setLineNumber(initAssignNode, targetToken);
@@ -100,7 +114,14 @@ public class LoopStatementParser extends StatementParser
         loopNode.addChild(testNode);
 
         // second identifier := expression
-        token = nextToken();  // consume the |
+        // Synchronize at the BAR.
+        token = synchronize(BAR_SET);
+        if (token.getType() == BAR) {
+            token = nextToken();  // consume the BAR
+        }
+        else {
+            errorHandler.flag(token, MISSING_BAR, this);
+        }
 
         AssignmentStatementParser assignmentParser2 =
                 new AssignmentStatementParser(this);
