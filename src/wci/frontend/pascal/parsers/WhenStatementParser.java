@@ -179,12 +179,12 @@ public class WhenStatementParser extends StatementParser
 
         // Parse the GREATERTHAN0 statement.
         //StatementParser gtStatementParser = new StatementParser(this);
-        ifGTNode.addChild(ltStatementParser.parse(token));
+        //ifGTNode.addChild(ltStatementParser.parse(token));
 
         /*******/
 
         // IF EQUAL0 ELSE IF GREATERTHAN0
-        ifEQNode.addChild(ifGTNode);
+        ifEQNode.addChild(ltStatementParser.parse(token));  // TODO fixed
 
         // IF LESSTHAN0 ELSE IF EQUAL0
         ifLTNode.addChild(ifEQNode);
