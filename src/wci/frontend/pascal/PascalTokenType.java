@@ -20,7 +20,7 @@ public enum PascalTokenType implements TokenType
     AND, ARRAY, BEGIN, CASE, DIV, DO, ELSE, END,
     FILE, FOR, FUNCTION, IF, IN, MOD, NIL, NOT,
     OF, OR, PACKED, PROCEDURE, PROGRAM, REPEAT, SET,
-    THEN, TO, DOWNTO, UNTIL, VAR, WHILE, WITH, LOOP,
+    THEN, TO, DOWNTO, UNTIL, VAR, WHILE, WITH, WHEN, GREATERTHAN0, LESSTHAN0, EQUAL0, LOOP,
 
     // Special symbols.
     PLUS("+"), MINUS("-"), STAR("*"), SLASH("/"), COLON_EQUALS(":="),

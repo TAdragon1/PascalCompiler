@@ -1,18 +1,15 @@
 Begin
-a:=1;
-b:=2;
-Loop ( a := 2+3*10  |  a <= (90 * 5 - 1)  |  a := a + 90 ) DO
+A:=5;
+c:=4;
+Loop ( A := 0  |  A < 6 * 2 + 3 / 4  |  A := A + 3 ) DO
    BEGIN      
-   a := a - 10;    
-   if ( a < (10 + 3) ) then 
-	Begin
-		Loop ( b := 3*10 - b  |  
-		(b + 3) <= (100 - 90 * 5 - 1)  
-		|  b := b - 3 ) DO a:=a-1
-	end
-    else
-	b := 3 - a < 1 + b
-    End
+       c := c + 2;
+       When (A) Lessthan0 c:= c + 10
+       equal0 A := A + 4
+       greaterthan0
+       begin
+            A := A + 2
+       end;
+   End;
 End.
 
-		
