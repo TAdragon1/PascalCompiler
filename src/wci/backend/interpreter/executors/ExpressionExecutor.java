@@ -225,6 +225,8 @@ public class ExpressionExecutor extends StatementExecutor
             int value1 = (Integer) operand1;
             int value2 = (Integer) operand2;
 
+            // TODO FLAG FOR BOOLEAN EVALUATION
+
             // Integer operands.
             switch (nodeType) {
                 case EQ: return value1 == value2;
