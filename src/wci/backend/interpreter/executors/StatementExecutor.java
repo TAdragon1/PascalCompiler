@@ -22,7 +22,7 @@ public class StatementExecutor extends Executor
 {
     /**
      * Constructor.
-     * @param parent executor.
+     * @param the parent executor.
      */
     public StatementExecutor(Executor parent)
     {

@@ -20,7 +20,7 @@ public class IfExecutor extends StatementExecutor
 {
     /**
      * Constructor.
-     * @param parent executor.
+     * @param the parent executor.
      */
     public IfExecutor(Executor parent)
     {

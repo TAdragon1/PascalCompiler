@@ -6,11 +6,12 @@ import wci.frontend.*;
 import wci.frontend.pascal.*;
 import wci.intermediate.*;
 import wci.intermediate.icodeimpl.*;
+import wci.intermediate.symtabimpl.*;
+import wci.intermediate.typeimpl.*;
 
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
-import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
 
 /**
  * <h1>WhileStatementParser</h1>
@@ -51,7 +52,7 @@ public class WhileStatementParser extends StatementParser
         token = nextToken();  // consume the WHILE
 
         // Create LOOP, TEST, and NOT nodes.
-        ICodeNode loopNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.LOOP);
+        ICodeNode loopNode = ICodeFactory.createICodeNode(LOOP);
         ICodeNode breakNode = ICodeFactory.createICodeNode(TEST);
         ICodeNode notNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NOT);
 
@@ -63,7 +64,15 @@ public class WhileStatementParser extends StatementParser
         // Parse the expression.
         // The NOT node adopts the expression subtree as its only child.
         ExpressionParser expressionParser = new ExpressionParser(this);
-        notNode.addChild(expressionParser.parse(token));
+        ICodeNode exprNode = expressionParser.parse(token);
+        notNode.addChild(exprNode);
+
+        // Type check: The test expression must be boolean.
+        TypeSpec exprType = exprNode != null ? exprNode.getTypeSpec()
+                                             : Predefined.undefinedType;
+        if (!TypeChecker.isBoolean(exprType)) {
+            errorHandler.flag(token, INCOMPATIBLE_TYPES, this);
+        }
 
         // Synchronize at the DO.
         token = synchronize(DO_SET);

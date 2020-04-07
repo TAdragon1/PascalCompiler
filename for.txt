@@ -1,7 +1,0 @@
-BEGIN
-    j := 1;
-
-    FOR k := j TO 5 DO n := k;
-
-    Loop (k := j | k <= 5 | k := k + 1 ) do n := k;
-END.
