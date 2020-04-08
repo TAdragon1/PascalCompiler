@@ -1,12 +1,9 @@
 package wci.frontend.pascal.parsers;
 
-import java.io.BufferedReader;
-import java.io.CharArrayReader;
 import java.util.EnumSet;
 
 import wci.frontend.*;
 import wci.frontend.pascal.*;
-import wci.frontend.pascal.tokens.PascalNumberToken;
 import wci.intermediate.*;
 import wci.intermediate.icodeimpl.*;
 

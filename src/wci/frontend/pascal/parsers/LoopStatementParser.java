@@ -10,7 +10,6 @@ import wci.intermediate.icodeimpl.ICodeNodeTypeImpl;
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
-import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
 
 /**
  * <h1>LoopStatementParser</h1>
@@ -29,15 +28,6 @@ public class LoopStatementParser extends StatementParser
     public LoopStatementParser(PascalParserTD parent)
     {
         super(parent);
-    }
-
-    // Synchronization set for TO or DOWNTO.
-    private static final EnumSet<PascalTokenType> TO_DOWNTO_SET =
-            ExpressionParser.EXPR_START_SET.clone();
-    static {
-        TO_DOWNTO_SET.add(TO);
-        TO_DOWNTO_SET.add(DOWNTO);
-        TO_DOWNTO_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
 
     // Synchronization set for DO.
