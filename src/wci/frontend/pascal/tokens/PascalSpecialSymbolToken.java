@@ -44,7 +44,8 @@ public class PascalSpecialSymbolToken extends PascalToken
             // Single-character special symbols.
             case '+':  case '-':  case '*':  case '/':  case ',':
             case ';':  case '\'': case '=':  case '(':  case ')':
-            case '[':  case ']':  case '{':  case '}':  case '^': {
+            case '[':  case ']':  case '{':  case '}':  case '^':
+            case '|': {
                 nextChar();  // consume character
                 break;
             }
