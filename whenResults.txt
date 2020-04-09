@@ -152,3 +152,8 @@
 
                    0 instructions generated.
                 0.00 seconds total code generation time.
+
+>>> LINE 002: infected = 7
+>>> LINE 003: dead = 6
+>>> LINE 004: fatalityrate = 0
+>>> LINE 020: infected = 2400

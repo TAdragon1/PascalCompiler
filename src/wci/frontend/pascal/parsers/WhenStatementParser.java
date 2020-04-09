@@ -1,12 +1,9 @@
 package wci.frontend.pascal.parsers;
 
-import java.io.BufferedReader;
-import java.io.CharArrayReader;
 import java.util.EnumSet;
 
 import wci.frontend.*;
 import wci.frontend.pascal.*;
-import wci.frontend.pascal.tokens.PascalNumberToken;
 import wci.intermediate.*;
 import wci.intermediate.icodeimpl.*;
 
@@ -70,8 +67,28 @@ public class WhenStatementParser extends StatementParser
         token = nextToken();  // consume the WHEN
 
         // Parse the when expression
+        int expressionLineNumber = token.getLineNumber();
         ExpressionParser expressionParser = new ExpressionParser(this);
-        ICodeNode whenExpression = expressionParser.parse(token);
+        ICodeNode whenExpressionNode = expressionParser.parse(token);
+
+        // Create assignNode to keep track of expression value
+        ICodeNode assignNode = ICodeFactory.createICodeNode(ASSIGN);
+
+        // Enter the identifier into the table
+        String targetName = "_ExpressionVal_Line" + expressionLineNumber;
+        SymTabEntry targetId = targetId = symTabStack.enterLocal(targetName);
+
+        // Create the variable node and set its name attribute.
+        ICodeNode variableNode = ICodeFactory.createICodeNode(VARIABLE);
+        variableNode.setAttribute(ID, targetId);
+
+        // The ASSIGN node adopts the variable node as its first child.
+        assignNode.addChild(variableNode);
+
+        assignNode.addChild(whenExpressionNode);
+
+        ICodeNode compoundNode = ICodeFactory.createICodeNode(COMPOUND);
+        compoundNode.addChild(assignNode);
 
         // Synchronize at the LESSTHAN0.
         token = synchronize(LESSTHAN0_SET);
@@ -90,7 +107,7 @@ public class WhenStatementParser extends StatementParser
         // LESSTHAN0
         ICodeNodeType nodeType = LT;
         ICodeNode lessThan0Node = ICodeFactory.createICodeNode(nodeType);
-        lessThan0Node.addChild(whenExpression);
+        lessThan0Node.addChild(variableNode);
 
         //Add 0 node
         ICodeNode zeroNode = ICodeFactory.createICodeNode(INTEGER_CONSTANT);
@@ -103,8 +120,6 @@ public class WhenStatementParser extends StatementParser
         // Add Expression as child
         ifLTNode.addChild(lessThan0Node);
         ifLTNode.addChild(ltStatementNode);
-
-        /*******/
 
         if (token.getType() == SEMICOLON){
             token = nextToken(); // CONSUME the ;
@@ -124,7 +139,7 @@ public class WhenStatementParser extends StatementParser
         // EQUAL0
         ICodeNodeType nodeTypeEQ = EQ;
         ICodeNode equal0Node = ICodeFactory.createICodeNode(nodeTypeEQ);
-        equal0Node.addChild(whenExpression);
+        equal0Node.addChild(variableNode);
 
         // Add 0 node
         equal0Node.addChild(zeroNode);
@@ -142,8 +157,6 @@ public class WhenStatementParser extends StatementParser
         //StatementParser eqStatementParser = new StatementParser(this);
         ifEQNode.addChild(ltStatementParser.parse(token));
 
-        /********/
-
         token = currentToken();
         if (token.getType() == SEMICOLON){
             token = nextToken(); // CONSUME the ;
@@ -160,35 +173,16 @@ public class WhenStatementParser extends StatementParser
             errorHandler.flag(token, MISSING_GREATERTHAN0, this);
         }
 
-        // GREATERTHAN0
-        ICodeNodeType nodeTypeGT = GT;
-        ICodeNode greaterThan0Node = ICodeFactory.createICodeNode(nodeTypeGT);
-        greaterThan0Node.addChild(whenExpression);
-
-        // Add 0 node
-        greaterThan0Node.addChild(zeroNode);
-
-        // Create IF node
-        ICodeNode ifGTNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.IF);
-
-        // Set the current line number as an attribute.
-        setLineNumber(ifGTNode, targetToken);
-
-        // Add Expression as child
-        ifGTNode.addChild(greaterThan0Node);
-
-        // Parse the GREATERTHAN0 statement.
-        //StatementParser gtStatementParser = new StatementParser(this);
-        //ifGTNode.addChild(ltStatementParser.parse(token));
-
-        /*******/
+        ICodeNode gtStatementNode = ltStatementParser.parse(token);
 
         // IF EQUAL0 ELSE IF GREATERTHAN0
-        ifEQNode.addChild(ltStatementParser.parse(token));  // TODO fixed
+        ifEQNode.addChild(gtStatementNode);
 
         // IF LESSTHAN0 ELSE IF EQUAL0
         ifLTNode.addChild(ifEQNode);
 
-        return ifLTNode;
+        compoundNode.addChild(ifLTNode);
+
+        return compoundNode;
     }
 }
