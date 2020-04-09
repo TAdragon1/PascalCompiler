@@ -7,6 +7,7 @@ import wci.frontend.pascal.*;
 import wci.intermediate.*;
 import wci.intermediate.icodeimpl.ICodeNodeTypeImpl;
 
+import static wci.frontend.pascal.PascalErrorCode.MISSING_LEFT_PAREN;
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
@@ -31,15 +32,6 @@ public class LoopStatementParser extends StatementParser
         super(parent);
     }
 
-    // Synchronization set for TO or DOWNTO.
-    private static final EnumSet<PascalTokenType> TO_DOWNTO_SET =
-            ExpressionParser.EXPR_START_SET.clone();
-    static {
-        TO_DOWNTO_SET.add(TO);
-        TO_DOWNTO_SET.add(DOWNTO);
-        TO_DOWNTO_SET.addAll(StatementParser.STMT_FOLLOW_SET);
-    }
-
     // Synchronization set for DO.
     private static final EnumSet<PascalTokenType> DO_SET =
             StatementParser.STMT_START_SET.clone();
@@ -48,12 +40,28 @@ public class LoopStatementParser extends StatementParser
         DO_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
 
+    // Synchronization set for Left Paren.
+    private static final EnumSet<PascalTokenType> LEFT_PAREN_SET =
+            StatementParser.STMT_START_SET.clone();
+    static {
+        LEFT_PAREN_SET.add(LEFT_PAREN);
+        LEFT_PAREN_SET.addAll(StatementParser.STMT_FOLLOW_SET);
+    }
+
     // Synchronization set for BAR.
     private static final EnumSet<PascalTokenType> BAR_SET =
             StatementParser.STMT_START_SET.clone();
     static {
         BAR_SET.add(BAR);
         BAR_SET.addAll(StatementParser.STMT_FOLLOW_SET);
+    }
+
+    // Synchronization set for Right Paren.
+    private static final EnumSet<PascalTokenType> RIGHT_PAREN_SET =
+            StatementParser.STMT_START_SET.clone();
+    static {
+        RIGHT_PAREN_SET.add(RIGHT_PAREN);
+        RIGHT_PAREN_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
 
     /**
@@ -67,7 +75,14 @@ public class LoopStatementParser extends StatementParser
     {
         token = nextToken();  // consume the Loop
 
-        token = nextToken();  // consume the (
+        // Synchronize at the Left Paren.
+        token = synchronize(LEFT_PAREN_SET);
+        if (token.getType() == LEFT_PAREN) {
+            token = nextToken();  // consume the LEFT_PAREN
+        }
+        else {
+            errorHandler.flag(token, MISSING_LEFT_PAREN, this);
+        }
 
         Token targetToken = token;
 
@@ -78,8 +93,7 @@ public class LoopStatementParser extends StatementParser
         ICodeNode notNode = ICodeFactory.createICodeNode(ICodeNodeTypeImpl.NOT);
 
         // Parse the embedded initial assignment.
-        AssignmentStatementParser assignmentParser =
-                new AssignmentStatementParser(this);
+        AssignmentStatementParser assignmentParser = new AssignmentStatementParser(this);
         ICodeNode initAssignNode = assignmentParser.parse(token);
 
         token = currentToken();
@@ -123,16 +137,20 @@ public class LoopStatementParser extends StatementParser
             errorHandler.flag(token, MISSING_BAR, this);
         }
 
-        AssignmentStatementParser assignmentParser2 =
-                new AssignmentStatementParser(this);
+        AssignmentStatementParser assignmentParser2 = new AssignmentStatementParser(this);
         ICodeNode initAssignNode2 = assignmentParser2.parse(token);
-
-        // loopNode.addChild(initAssignNode2); moved to after adding statement
 
         // Set the current line number attribute.
         setLineNumber(initAssignNode2, targetToken);
 
-        token = nextToken();  // consume the )
+        // Synchronize at the Right Paren.
+        token = synchronize(RIGHT_PAREN_SET);
+        if (token.getType() == RIGHT_PAREN) {
+            token = nextToken();  // consume the RIGHT_PAREN
+        }
+        else {
+            errorHandler.flag(token, MISSING_RIGHT_PAREN, this);
+        }
 
         // Synchronize at the DO.
         token = synchronize(DO_SET);

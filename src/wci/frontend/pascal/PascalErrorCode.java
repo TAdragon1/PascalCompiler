@@ -47,6 +47,7 @@ public enum PascalErrorCode
     MISSING_GREATERTHAN0("Missing GREATERTHAN0"),
     MISSING_IDENTIFIER("Missing identifier"),
     MISSING_LEFT_BRACKET("Missing ["),
+    MISSING_LEFT_PAREN("Missing ("),
     MISSING_LESSTHAN0("Missing LESSTHAN0"),
     MISSING_OF("Missing OF"),
     MISSING_PERIOD("Missing ."),
