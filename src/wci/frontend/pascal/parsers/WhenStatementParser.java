@@ -6,11 +6,15 @@ import wci.frontend.*;
 import wci.frontend.pascal.*;
 import wci.intermediate.*;
 import wci.intermediate.icodeimpl.*;
+import wci.intermediate.symtabimpl.DefinitionImpl;
+import wci.intermediate.symtabimpl.Predefined;
+import wci.intermediate.typeimpl.TypeChecker;
 
 import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
 import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
+import static wci.intermediate.symtabimpl.DefinitionImpl.UNDEFINED;
 
 /**
  * <h1>IfStatementParser</h1>
@@ -71,16 +75,25 @@ public class WhenStatementParser extends StatementParser
         ExpressionParser expressionParser = new ExpressionParser(this);
         ICodeNode whenExpressionNode = expressionParser.parse(token);
 
-        // Create assignNode to keep track of expression value
-        ICodeNode assignNode = ICodeFactory.createICodeNode(ASSIGN);
-
         // Enter the identifier into the table
         String targetName = "_ExpressionVal_Line" + expressionLineNumber;
-        SymTabEntry targetId = targetId = symTabStack.enterLocal(targetName);
+        SymTabEntry targetId = symTabStack.enterLocal(targetName);
+        targetId.setDefinition(DefinitionImpl.VARIABLE);
+        targetId.setTypeSpec(Predefined.realType);
 
         // Create the variable node and set its name attribute.
         ICodeNode variableNode = ICodeFactory.createICodeNode(VARIABLE);
         variableNode.setAttribute(ID, targetId);
+
+        // Type check: expression must be comparison compatible with 0
+        TypeSpec zeroType = Predefined.integerType;
+        TypeSpec exprType = whenExpressionNode != null ? whenExpressionNode.getTypeSpec() : Predefined.undefinedType;
+        if (!TypeChecker.areComparisonCompatible(zeroType, exprType)) {
+            errorHandler.flag(token, INCOMPATIBLE_TYPES, this);
+        }
+
+        // Create assignNode to keep track of expression value
+        ICodeNode assignNode = ICodeFactory.createICodeNode(ASSIGN);
 
         // The ASSIGN node adopts the variable node as its first child.
         assignNode.addChild(variableNode);
