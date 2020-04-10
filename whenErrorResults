@@ -1,0 +1,39 @@
+001 CONST
+002 seven =  7;
+003 deadpatients = 6.0;
+004
+005 VAR
+006 Infected : integer;
+007 Dead : integer;
+008 FatalityRate : real;
+009
+010 Begin
+011 Infected := seven;
+012 Dead := deadpatients;
+            ^
+*** Incompatible types [at "deadpatients"]
+013 FatalityRate := 0 ;
+014 When ( (Dead * 100) - Infected )
+015 Lessthan0
+016 	Begin
+017 		When ( Infected - (Dead * 50) )
+018 		Lessthan0
+019 			FatalityRate := Dead / Infected;
+020 		equal0
+021 			FatalityRate := 2.0 * Infected;
+022 		Greaterthan0
+023 			FatalityRate := 1;
+024 	End;
+025 equal0
+026 	FatalityRate := 4;
+027 Greaterthan0
+028 	Begin
+029 		Infected := Dead * 100.0 * 2 * 2.0;
+                  ^
+*** Incompatible types [at "Dead"]
+030 	end;
+031 End.
+
+                  31 source lines.
+                   2 syntax errors.
+                0.03 seconds total parsing time.

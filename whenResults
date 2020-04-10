@@ -1,0 +1,203 @@
+001
+002 CONST
+003 seven =  7;
+004 deadpatients = 6;
+005
+006 VAR
+007 Infected : integer;
+008 Dead : integer;
+009 FatalityRate : real;
+010
+011
+012 Begin
+013 Infected := seven;
+014 Dead := deadpatients;
+015 FatalityRate := 0.0 ;
+016 When ( (Dead * 100) - Infected )
+017 Lessthan0
+018 	Begin
+019 		When ( Infected - (Dead * 50) )
+020 		Lessthan0
+021 			FatalityRate := Dead / Infected;
+022 		equal0
+023 			FatalityRate := 2.0 * Infected;
+024 		Greaterthan0
+025 			FatalityRate := 1;
+026 	End;
+027 equal0
+028 	FatalityRate := 4;
+029 Greaterthan0
+030 	Begin
+031 		Infected := Dead * 100 * 2 * 2;
+032 	end;
+033 End.
+
+                  33 source lines.
+                   0 syntax errors.
+                0.03 seconds total parsing time.
+
+===== CROSS-REFERENCE TABLE =====
+
+*** PROGRAM dummyprogramname ***
+
+Identifier       Line numbers    Type specification
+----------       ------------    ------------------
+_ExpressionVal_Line16
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = real
+_ExpressionVal_Line19
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = real
+dead             008 014 016 019 021 031
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+deadpatients     004 014
+                                 Defined as: constant
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+                                 Value = 6
+fatalityrate     009 015 021 023 025 028
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = real
+infected         007 013 016 019 021 023 031
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+seven            003 013
+                                 Defined as: constant
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+                                 Value = 7
+
+===== INTERMEDIATE CODE =====
+
+*** PROGRAM dummyprogramname ***
+
+<COMPOUND line="12">
+    <ASSIGN line="13" type_id="integer">
+        <VARIABLE id="infected" level="1" type_id="integer" />
+        <INTEGER_CONSTANT value="7" type_id="integer" />
+    </ASSIGN>
+    <ASSIGN line="14" type_id="integer">
+        <VARIABLE id="dead" level="1" type_id="integer" />
+        <INTEGER_CONSTANT value="6" type_id="integer" />
+    </ASSIGN>
+    <ASSIGN line="15" type_id="real">
+        <VARIABLE id="fatalityrate" level="1" type_id="real" />
+        <REAL_CONSTANT value="0.0" type_id="real" />
+    </ASSIGN>
+    <COMPOUND line="16">
+        <ASSIGN>
+            <VARIABLE id="_ExpressionVal_Line16" level="1" />
+            <SUBTRACT type_id="integer">
+                <MULTIPLY type_id="integer">
+                    <VARIABLE id="dead" level="1" type_id="integer" />
+                    <INTEGER_CONSTANT value="100" type_id="integer" />
+                </MULTIPLY>
+                <VARIABLE id="infected" level="1" type_id="integer" />
+            </SUBTRACT>
+        </ASSIGN>
+        <IF>
+            <LT>
+                <VARIABLE id="_ExpressionVal_Line16" level="1" />
+                <INTEGER_CONSTANT value="0" />
+            </LT>
+            <COMPOUND line="18">
+                <COMPOUND line="19">
+                    <ASSIGN>
+                        <VARIABLE id="_ExpressionVal_Line19" level="1" />
+                        <SUBTRACT type_id="integer">
+                            <VARIABLE id="infected" level="1" type_id="integer"
+                            />
+                            <MULTIPLY type_id="integer">
+                                <VARIABLE id="dead" level="1" type_id="integer"
+                                />
+                                <INTEGER_CONSTANT value="50" type_id="integer"
+                                />
+                            </MULTIPLY>
+                        </SUBTRACT>
+                    </ASSIGN>
+                    <IF>
+                        <LT>
+                            <VARIABLE id="_ExpressionVal_Line19" level="1" />
+                            <INTEGER_CONSTANT value="0" />
+                        </LT>
+                        <ASSIGN line="21" type_id="real">
+                            <VARIABLE id="fatalityrate" level="1" type_id="real"
+                            />
+                            <FLOAT_DIVIDE type_id="real">
+                                <VARIABLE id="dead" level="1" type_id="integer"
+                                />
+                                <VARIABLE id="infected" level="1"
+                                    type_id="integer" />
+                            </FLOAT_DIVIDE>
+                        </ASSIGN>
+                        <IF line="22">
+                            <EQ>
+                                <VARIABLE id="_ExpressionVal_Line19" level="1"
+                                />
+                                <INTEGER_CONSTANT value="0" />
+                            </EQ>
+                            <ASSIGN line="23" type_id="real">
+                                <VARIABLE id="fatalityrate" level="1"
+                                    type_id="real" />
+                                <MULTIPLY type_id="real">
+                                    <REAL_CONSTANT value="2.0" type_id="real" />
+                                    <VARIABLE id="infected" level="1"
+                                        type_id="integer" />
+                                </MULTIPLY>
+                            </ASSIGN>
+                            <ASSIGN line="25" type_id="real">
+                                <VARIABLE id="fatalityrate" level="1"
+                                    type_id="real" />
+                                <INTEGER_CONSTANT value="1" type_id="integer" />
+                            </ASSIGN>
+                        </IF>
+                    </IF>
+                </COMPOUND>
+            </COMPOUND>
+            <IF line="27">
+                <EQ>
+                    <VARIABLE id="_ExpressionVal_Line16" level="1" />
+                    <INTEGER_CONSTANT value="0" />
+                </EQ>
+                <ASSIGN line="28" type_id="real">
+                    <VARIABLE id="fatalityrate" level="1" type_id="real" />
+                    <INTEGER_CONSTANT value="4" type_id="integer" />
+                </ASSIGN>
+                <COMPOUND line="30">
+                    <ASSIGN line="31" type_id="integer">
+                        <VARIABLE id="infected" level="1" type_id="integer" />
+                        <MULTIPLY type_id="integer">
+                            <MULTIPLY type_id="integer">
+                                <MULTIPLY type_id="integer">
+                                    <VARIABLE id="dead" level="1"
+                                        type_id="integer" />
+                                    <INTEGER_CONSTANT value="100"
+                                        type_id="integer" />
+                                </MULTIPLY>
+                                <INTEGER_CONSTANT value="2" type_id="integer" />
+                            </MULTIPLY>
+                            <INTEGER_CONSTANT value="2" type_id="integer" />
+                        </MULTIPLY>
+                    </ASSIGN>
+                </COMPOUND>
+            </IF>
+        </IF>
+    </COMPOUND>
+</COMPOUND>
+
+===== OUTPUT =====
+
+>>> LINE 013: infected = 7
+>>> LINE 014: dead = 6
+>>> LINE 015: fatalityrate = 0.0
+>>> LINE 031: infected = 2400
+
+                   7 statements executed.
+                   0 runtime errors.
+                0.00 seconds total execution time.
