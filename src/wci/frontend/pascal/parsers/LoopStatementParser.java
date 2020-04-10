@@ -6,6 +6,8 @@ import wci.frontend.*;
 import wci.frontend.pascal.*;
 import wci.intermediate.*;
 import wci.intermediate.icodeimpl.ICodeNodeTypeImpl;
+import wci.intermediate.symtabimpl.Predefined;
+import wci.intermediate.typeimpl.TypeChecker;
 
 import static wci.frontend.pascal.PascalErrorCode.MISSING_LEFT_PAREN;
 import static wci.frontend.pascal.PascalTokenType.*;
@@ -17,8 +19,6 @@ import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
  * <h1>LoopStatementParser</h1>
  *
  * <p>Parse a Loop statement.</p>
- *
- *
  *
  */
 public class LoopStatementParser extends StatementParser
@@ -40,7 +40,7 @@ public class LoopStatementParser extends StatementParser
         DO_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
 
-    // Synchronization set for Left Paren.
+    // Synchronization set for LEFT PAREN.
     private static final EnumSet<PascalTokenType> LEFT_PAREN_SET =
             StatementParser.STMT_START_SET.clone();
     static {
@@ -56,7 +56,7 @@ public class LoopStatementParser extends StatementParser
         BAR_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
 
-    // Synchronization set for Right Paren.
+    // Synchronization set for RIGHT PAREN.
     private static final EnumSet<PascalTokenType> RIGHT_PAREN_SET =
             StatementParser.STMT_START_SET.clone();
     static {
@@ -75,7 +75,7 @@ public class LoopStatementParser extends StatementParser
     {
         token = nextToken();  // consume the Loop
 
-        // Synchronize at the Left Paren.
+        // Synchronize at the LEFT PAREN.
         token = synchronize(LEFT_PAREN_SET);
         if (token.getType() == LEFT_PAREN) {
             token = nextToken();  // consume the LEFT_PAREN
@@ -121,9 +121,17 @@ public class LoopStatementParser extends StatementParser
         ExpressionParser expressionParser = new ExpressionParser(this);
         ICodeNode expressionNode = expressionParser.parse(token);
 
+        // Add the Expression Node to the NOT Node
+        notNode.addChild(expressionNode);
+
+        // Type check: The test expression must be boolean.
+        TypeSpec exprType = expressionNode != null ? expressionNode.getTypeSpec() : Predefined.undefinedType;
+        if (!TypeChecker.isBoolean(exprType)) {
+            errorHandler.flag(token, INCOMPATIBLE_TYPES, this);
+        }
+
         // The TEST node adopts the relational operator node as its only child.
         // The LOOP node adopts the TEST node as its first child.
-        notNode.addChild(expressionNode);
         testNode.addChild(notNode);
         loopNode.addChild(testNode);
 
@@ -143,7 +151,7 @@ public class LoopStatementParser extends StatementParser
         // Set the current line number attribute.
         setLineNumber(initAssignNode2, targetToken);
 
-        // Synchronize at the Right Paren.
+        // Synchronize at the RIGHT PAREN.
         token = synchronize(RIGHT_PAREN_SET);
         if (token.getType() == RIGHT_PAREN) {
             token = nextToken();  // consume the RIGHT_PAREN
