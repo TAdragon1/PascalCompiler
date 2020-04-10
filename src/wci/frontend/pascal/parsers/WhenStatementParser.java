@@ -14,14 +14,11 @@ import static wci.frontend.pascal.PascalTokenType.*;
 import static wci.frontend.pascal.PascalErrorCode.*;
 import static wci.intermediate.icodeimpl.ICodeNodeTypeImpl.*;
 import static wci.intermediate.icodeimpl.ICodeKeyImpl.*;
-import static wci.intermediate.symtabimpl.DefinitionImpl.UNDEFINED;
 
 /**
  * <h1>IfStatementParser</h1>
  *
  * <p>Parse a Pascal WHEN statement.</p>
- *
- *
  *
  */
 public class WhenStatementParser extends StatementParser
@@ -36,24 +33,21 @@ public class WhenStatementParser extends StatementParser
     }
 
     // Synchronization set for LESSTHAN0.
-    private static final EnumSet<PascalTokenType> LESSTHAN0_SET =
-            StatementParser.STMT_START_SET.clone();
+    private static final EnumSet<PascalTokenType> LESSTHAN0_SET = StatementParser.STMT_START_SET.clone();
     static {
         LESSTHAN0_SET.add(LESSTHAN0);
         LESSTHAN0_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
 
     // Synchronization set for EQUAL0.
-    private static final EnumSet<PascalTokenType> EQUAL0_SET =
-            StatementParser.STMT_START_SET.clone();
+    private static final EnumSet<PascalTokenType> EQUAL0_SET = StatementParser.STMT_START_SET.clone();
     static {
         EQUAL0_SET.add(EQUAL0);
         EQUAL0_SET.addAll(StatementParser.STMT_FOLLOW_SET);
     }
 
     // Synchronization set for GREATERTHAN0.
-    private static final EnumSet<PascalTokenType> GREATERTHAN0_SET =
-            StatementParser.STMT_START_SET.clone();
+    private static final EnumSet<PascalTokenType> GREATERTHAN0_SET = StatementParser.STMT_START_SET.clone();
     static {
         GREATERTHAN0_SET.add(GREATERTHAN0);
         GREATERTHAN0_SET.addAll(StatementParser.STMT_FOLLOW_SET);
